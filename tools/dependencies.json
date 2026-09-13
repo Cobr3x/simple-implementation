@@ -1,0 +1,7 @@
+{
+  "hal-h7": ["https://github.com/STMicroelectronics/stm32h7xx-hal-driver.git", "e3c518ebda3e00c8e52b1625ca44fba65da3b63e"],
+  "hal-g4": ["https://github.com/STMicroelectronics/stm32g4xx-hal-driver.git", "a6001282dfacfff57e9710250f15e4333b578865"],
+  "cmsis-h7": ["https://github.com/STMicroelectronics/cmsis-device-h7.git", "81db1ec63cdc191fae1565b772da3ea5aa29a683"],
+  "cmsis-g4": ["https://github.com/STMicroelectronics/cmsis-device-g4.git", "626ee412334a5ed2e5b320af5a8d77d69f03a558"],
+  "cmsis-core": ["https://github.com/ARM-software/CMSIS_5.git", "2b7495b8535bdcb306dac29b9ded4cfb679d7e5c"]
+}

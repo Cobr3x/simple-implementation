@@ -1,0 +1,7 @@
+.deps/
+.venv/
+build*/
+out/
+provisioning/
+__pycache__/
+*.pyc

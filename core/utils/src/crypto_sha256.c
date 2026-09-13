@@ -1,11 +1,8 @@
 #include "crypto_sha256.h"
-#include <tinycrypt/sha256.h>
 #include <tinycrypt/constants.h>
+#include <tinycrypt/sha256.h>
 
-int crypto_sha256(const uint8_t *data,
-                  size_t data_len,
-                  uint8_t out[32])
-{
+int crypto_sha256(const uint8_t *data, size_t data_len, uint8_t out[32]) {
     if (!data || !out)
         return 0;
 

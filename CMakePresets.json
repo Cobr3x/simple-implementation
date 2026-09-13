@@ -1,0 +1,101 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "posix-debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/posix-debug",
+      "cacheVariables": {
+        "INSTANCE": "posix",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "posix-release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/posix-release",
+      "cacheVariables": {
+        "INSTANCE": "posix",
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "stm32h743vit6-debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/stm32h743vit6-debug",
+      "cacheVariables": {
+        "INSTANCE": "stm32h743vit6",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "stm32h743vit6-release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/stm32h743vit6-release",
+      "cacheVariables": {
+        "INSTANCE": "stm32h743vit6",
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "stm32g431cbu6-debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/stm32g431cbu6-debug",
+      "cacheVariables": {
+        "INSTANCE": "stm32g431cbu6",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "stm32g431cbu6-release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/stm32g431cbu6-release",
+      "cacheVariables": {
+        "INSTANCE": "stm32g431cbu6",
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "posix-debug",
+      "configurePreset": "posix-debug"
+    },
+    {
+      "name": "posix-release",
+      "configurePreset": "posix-release"
+    },
+    {
+      "name": "stm32h743vit6-debug",
+      "configurePreset": "stm32h743vit6-debug"
+    },
+    {
+      "name": "stm32h743vit6-release",
+      "configurePreset": "stm32h743vit6-release"
+    },
+    {
+      "name": "stm32g431cbu6-debug",
+      "configurePreset": "stm32g431cbu6-debug"
+    },
+    {
+      "name": "stm32g431cbu6-release",
+      "configurePreset": "stm32g431cbu6-release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "posix-debug",
+      "configurePreset": "posix-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "posix-release",
+      "configurePreset": "posix-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}

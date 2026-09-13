@@ -1,92 +1,33 @@
-cmake_minimum_required(VERSION 3.15)
-project(simple_attestation C CXX)
-
+cmake_minimum_required(VERSION 3.21)
+include(cmake/instance.cmake)
+project(simple_attestation LANGUAGES C ASM)
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
 
-option(BUILD_H7 "Build for STM32H7" OFF)
-option(BUILD_G4 "Build for STM32G4" OFF)
-
-# TODO: Fix TinyCrypt build integration.
-add_subdirectory(third_party/tinycrypt)
-
-add_library(tinycrypt_lib
-    third_party/tinycrypt/source/sha256.c
-    third_party/tinycrypt/source/hmac.c
-    third_party/tinycrypt/source/utils.c
-)
-
-target_include_directories(tinycrypt_lib PUBLIC
-    third_party/tinycrypt/include
-)
-
-# TODO: Fix source and include paths.
-add_library(core_utilities
-    core/simple.c
-    core/utilities/crypto_sha256.c
-    core/utilities/crypto_hmac.c
-    core/utilities/attestation.c
-)
-
-target_include_directories(core_utilities PUBLIC
-    core
-    core/utilities
-)
-
-target_link_libraries(core_utilities tinycrypt_lib)
-
-# TODO: Add missing UART, transport, verifier, and board code.
-add_library(drivers_uart
-    drivers/uart/uart_hw.h
-)
-
-target_include_directories(drivers_uart PUBLIC
-    drivers/uart
-)
-
-add_library(transport_uart
-    apps/common/transport_uart.c
-)
-
-target_include_directories(transport_uart PUBLIC
-    apps/common
-)
-
-target_link_libraries(transport_uart drivers_uart)
-
-add_library(app_prover
-    apps/prover/prover.c
-)
-
-target_include_directories(app_prover PUBLIC
-    apps/prover
-)
-
-target_link_libraries(app_prover core_utilities transport_uart)
-
-add_library(app_verifier
-    apps/verifier/verifier.c
-)
-
-target_include_directories(app_verifier PUBLIC
-    apps/verifier
-)
-
-target_link_libraries(app_verifier core_utilities transport_uart)
-
-
-if (BUILD_H7)
-    add_executable(h7_verifier
-        instances/h7_verifier/main.c
-        drivers/uart/uart_stm32h7.c
-    )
-    target_link_libraries(h7_verifier app_verifier)
-endif()
-
-if (BUILD_G4)
-    add_executable(g4_prover
-        instances/g4_prover/main.c
-        drivers/uart/uart_stm32g4.c
-    )
-    target_link_libraries(g4_prover app_prover)
+add_library(tinycrypt_lib STATIC
+    third_party/tinycrypt/lib/source/sha256.c
+    third_party/tinycrypt/lib/source/hmac.c
+    third_party/tinycrypt/lib/source/utils.c)
+target_include_directories(tinycrypt_lib PUBLIC third_party/tinycrypt/lib/include)
+add_library(auth_core STATIC
+    core/protocol/src/simple.c core/transport/src/auth_transport.c
+    core/platform/src/auth_journal.c
+    core/utils/src/crypto_sha256.c core/utils/src/crypto_hmac.c
+    core/utils/src/attestation.c
+    apps/prover/src/prover.c apps/verifier/src/verifier.c)
+target_include_directories(auth_core PUBLIC
+    core/protocol/include core/platform/include core/transport/include
+    core/utils/include apps/prover/include apps/verifier/include)
+target_link_libraries(auth_core PUBLIC tinycrypt_lib)
+target_compile_options(auth_core PRIVATE -Wall -Wextra -Werror -Wconversion -Wshadow)
+if(INSTANCE STREQUAL "posix")
+    include(CTest)
+    if(NOT UNIX)
+        message(FATAL_ERROR "The posix instance requires a UNIX host")
+    endif()
+    add_subdirectory(instances/posix)
+else()
+    add_subdirectory(drivers/stm32)
+    include(instances/stm32/CMakeLists.txt)
 endif()

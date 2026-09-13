@@ -1,0 +1,2 @@
+# The deployment Python tools currently use only the Python standard library.
+# Keep this file hash-pinned if a third-party package is added in the future.

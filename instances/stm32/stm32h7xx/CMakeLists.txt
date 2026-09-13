@@ -1,0 +1,4 @@
+set(FAMILY h7)
+set(AUTH_MCPU cortex-m7)
+set(AUTH_FPU fpv5-d16)
+set(FAMILY_DIR "${CMAKE_CURRENT_LIST_DIR}")
