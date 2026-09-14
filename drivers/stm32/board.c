@@ -1,3 +1,6 @@
+/* Generative AI disclosure: Drafted with Microsoft Copilot;
+ * revised with OpenAI Codex (SOL model). */
+
 #include "board.h"
 #include "auth_transport.h"
 #include <limits.h>

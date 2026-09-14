@@ -1,6 +1,7 @@
 #include "simple.h"
 #include <string.h>
 
+/* Shared helpers for constant-time comparison, secret clearing, and wire byte order. */
 int simple_ct_compare(const uint8_t *a, const uint8_t *b, size_t len) {
     if (!a || !b)
         return 0;
@@ -27,6 +28,7 @@ uint32_t simple_get_u32(const uint8_t in[4]) {
     return ((uint32_t)in[0] << 24) | ((uint32_t)in[1] << 16) | ((uint32_t)in[2] << 8) | in[3];
 }
 
+/* Encode and decode the fixed authenticated request and response payloads. */
 size_t simple_serialize_msg(const simple_msg_t *m, uint8_t *out, size_t out_max) {
     if (!m || !out || out_max < SIMPLE_REQUEST_LEN)
         return 0;
@@ -63,6 +65,7 @@ int simple_parse_report(const uint8_t *buf, size_t len, simple_report_t *r) {
     return 1;
 }
 
+/* Build the response authentication input shared by both peers. */
 int simple_report_auth(uint8_t result, uint32_t counter, const uint8_t nonce[16],
                        uint8_t out[SIMPLE_REPORT_AUTH_LEN]) {
     if (result > 1 || !nonce || !out)

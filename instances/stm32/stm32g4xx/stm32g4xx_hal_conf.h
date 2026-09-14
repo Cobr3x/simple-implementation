@@ -1,3 +1,6 @@
+/* Generative AI disclosure: Drafted with Microsoft Copilot;
+ * revised with OpenAI Codex (SOL model). */
+
 #ifndef AUTH_HAL_CONF_H
 #define AUTH_HAL_CONF_H
 #define HAL_MODULE_ENABLED

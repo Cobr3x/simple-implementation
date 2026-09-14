@@ -3,6 +3,7 @@
 #include "simple.h"
 #include <string.h>
 
+/* Load the prover's protected material and bind it to the approved measurement ranges. */
 int prover_init(prover_t *p, const auth_platform_t *platform, const attestation_range_t *ranges,
                 size_t count) {
     if (!p || !platform || !platform->load || !platform->save_counter || !platform->enter_atomic ||
@@ -22,6 +23,7 @@ int prover_init(prover_t *p, const auth_platform_t *platform, const attestation_
     return p->ready;
 }
 
+/* Authenticate a fresh challenge, measure the configured memory, and produce a bound response. */
 size_t prover_handle_request(prover_t *p, const uint8_t *req, size_t req_len, uint8_t *resp,
                              size_t resp_max) {
     if (!p || !p->ready || !req || !resp || resp_max < SIMPLE_REPORT_LEN)

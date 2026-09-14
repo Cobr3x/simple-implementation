@@ -1,3 +1,6 @@
+/* Generative AI disclosure: Drafted with Microsoft Copilot;
+ * revised with OpenAI Codex (SOL model). */
+
 #include "auth_journal.h"
 #include "board.h"
 #include "crypto_sha256.h"

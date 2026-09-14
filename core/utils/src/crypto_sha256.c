@@ -2,6 +2,7 @@
 #include <tinycrypt/constants.h>
 #include <tinycrypt/sha256.h>
 
+/* Hash a complete buffer while propagating every TinyCrypt failure. */
 int crypto_sha256(const uint8_t *data, size_t data_len, uint8_t out[32]) {
     if (!data || !out)
         return 0;

@@ -3,6 +3,7 @@
 #include "simple.h"
 #include <string.h>
 
+/* Journal record helpers keep the on-flash counter format authenticated and endian-safe. */
 static int erased(const uint8_t record[32]) {
     for (unsigned i = 0; i < 32; ++i)
         if (record[i] != 255)
@@ -16,6 +17,7 @@ static int record_mac(const auth_journal_t *j, uint32_t counter, uint8_t out[32]
     return crypto_hmac_compute(j->key, 32, input, sizeof(input), out);
 }
 
+/* Recover the newest valid counter while rejecting gaps or malformed records. */
 int auth_journal_load(auth_journal_t *j, uint32_t initial_counter) {
     if (!j || !j->read || !j->program || !j->erase || j->block_size < 32 || j->block_size % 32)
         return 0;
@@ -59,6 +61,7 @@ int auth_journal_load(auth_journal_t *j, uint32_t initial_counter) {
     return 1;
 }
 
+/* Append a durable counter record and roll over to the alternate erase block when needed. */
 int auth_journal_save(auth_journal_t *j, uint32_t counter) {
     if (!j || !j->ready || counter <= j->counter)
         return 0;

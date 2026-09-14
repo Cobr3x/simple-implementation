@@ -1,3 +1,6 @@
+/* Generative AI disclosure: Drafted with Microsoft Copilot;
+ * revised with OpenAI Codex (SOL model). */
+
 #ifndef AUTH_BOARD_H
 #define AUTH_BOARD_H
 

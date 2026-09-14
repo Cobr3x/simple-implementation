@@ -2,6 +2,7 @@
 #include "crypto_hmac.h"
 #include <string.h>
 
+/* Verifier lifecycle state is loaded once and cleared whenever a session ends. */
 int init_verifier(verifier_t *v, const auth_platform_t *platform, uint32_t timeout_ms) {
     if (!v || !platform || !platform->load || !platform->save_counter || !platform->random ||
         !platform->now_ms || !timeout_ms || timeout_ms > INT32_MAX)
@@ -26,6 +27,7 @@ void verifier_cancel(verifier_t *v) {
     simple_zero(v->nonce, sizeof(v->nonce));
 }
 
+/* Create and persist a fresh authenticated challenge for the prover. */
 size_t verifier_challenge(verifier_t *v, uint8_t *out, size_t capacity) {
     if (!v || !v->ready || v->outstanding || !out || capacity < SIMPLE_REQUEST_LEN)
         return 0;
@@ -72,6 +74,7 @@ verify_result_t verifier_poll(verifier_t *v) {
     return VERIFY_TIMEOUT;
 }
 
+/* Authenticate a response against the counter and nonce of the active challenge. */
 verify_result_t verify(verifier_t *v, const uint8_t *response, size_t len) {
     if (!v || !v->ready || !v->outstanding)
         return VERIFY_INVALID;

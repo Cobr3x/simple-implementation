@@ -1,3 +1,5 @@
+# Generative AI disclosure: Drafted with Microsoft Copilot; revised with OpenAI Codex (SOL model).
+
 set(CMSIS_DIR "${AUTH_DEPS_ROOT}/cmsis-${FAMILY}")
 if(NOT DEFINED STARTUP_SOURCE)
     if(NOT DEFINED STARTUP_BASENAME)

@@ -4,6 +4,7 @@
 #include <tinycrypt/constants.h>
 #include <tinycrypt/hmac.h>
 
+/* Compute one valid-state digest across the configured immutable memory ranges. */
 int attestation_compute_valid_state(const uint8_t key[32], const attestation_range_t *ranges,
                                     size_t count, uint8_t out[32]) {
     if (!key || !ranges || !count || !out)

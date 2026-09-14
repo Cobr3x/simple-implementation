@@ -1,3 +1,6 @@
+/* Generative AI disclosure: Drafted with Microsoft Copilot;
+ * revised with OpenAI Codex (SOL model). */
+
 #ifndef BOARD_CONFIG_H
 #define BOARD_CONFIG_H
 

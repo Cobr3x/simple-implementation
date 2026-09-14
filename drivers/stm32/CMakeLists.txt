@@ -1,3 +1,5 @@
+# Generative AI disclosure: Drafted with Microsoft Copilot; revised with OpenAI Codex (SOL model).
+
 if(NOT CMAKE_CROSSCOMPILING)
     message(FATAL_ERROR "Use -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake in a fresh build directory")
 endif()

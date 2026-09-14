@@ -4,6 +4,7 @@
 #include <tinycrypt/constants.h>
 #include <tinycrypt/hmac.h>
 
+/* Keep TinyCrypt setup, finalization, verification, and secret cleanup behind one checked API. */
 int crypto_hmac_compute(const uint8_t *key, size_t key_len, const uint8_t *msg, size_t msg_len,
                         uint8_t out[32]) {
     if (!key || !key_len || !out || (!msg && msg_len) || key_len > UINT_MAX || msg_len > UINT_MAX)

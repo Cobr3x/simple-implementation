@@ -1,3 +1,5 @@
+# Generative AI disclosure: Drafted with Microsoft Copilot; revised with OpenAI Codex (SOL model).
+
 set(FAMILY h7)
 set(AUTH_MCPU cortex-m7)
 set(AUTH_FPU fpv5-d16)

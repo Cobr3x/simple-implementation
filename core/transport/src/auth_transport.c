@@ -1,6 +1,7 @@
 #include "auth_transport.h"
 #include <string.h>
 
+/* Wrap a typed protocol payload in a bounded COBS frame. */
 size_t auth_frame_encode(uint8_t type, const uint8_t *payload, size_t len, uint8_t *out,
                          size_t capacity) {
     if (!payload || !out ||
@@ -31,6 +32,7 @@ size_t auth_frame_encode(uint8_t type, const uint8_t *payload, size_t len, uint8
     return pos;
 }
 
+/* Consume a byte stream until a complete valid frame or a recoverable discard. */
 int auth_frame_feed(auth_receiver_t *r, uint8_t byte, uint32_t now_ms, uint32_t frame_timeout_ms,
                     uint8_t *type, uint8_t *payload, size_t capacity, size_t *length) {
     if (!r || !type || !payload || !length || !frame_timeout_ms)
@@ -87,6 +89,7 @@ int auth_frame_feed(auth_receiver_t *r, uint8_t byte, uint32_t now_ms, uint32_t 
     return 1;
 }
 
+/* Encode and transmit one complete frame through the selected link backend. */
 int auth_frame_send(const auth_link_t *link, uint8_t type, const uint8_t *payload, size_t len,
                     uint32_t timeout_ms) {
     if (!link || !link->write || !timeout_ms)

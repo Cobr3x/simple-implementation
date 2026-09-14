@@ -1,3 +1,6 @@
+/* Generative AI disclosure: Drafted with Microsoft Copilot;
+ * revised with OpenAI Codex (SOL model). */
+
 ENTRY(Reset_Handler)
 MEMORY {
   FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 128K
